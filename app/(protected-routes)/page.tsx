@@ -1,5 +1,5 @@
 "use client";
-import NavBar from "@/components/navbar";
+import NavBarComponent from "@/components/navbarComponent";
 import { useSession, signOut } from "next-auth/react";
 export default function Home() {
   const { data: session } = useSession();
@@ -19,6 +19,6 @@ export default function Home() {
     //     Signout
     //   </button>
     // </div>
-    <NavBar session={session} signOut={() => signOut()} />
+    <NavBarComponent session={session} signOut={() => signOut()} />
   );
 }

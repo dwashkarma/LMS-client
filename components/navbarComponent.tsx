@@ -4,7 +4,7 @@ interface NavBarProps {
   session: any;
   signOut: () => void;
 }
-const NavBar: React.FC<NavBarProps> = ({ signOut, session }) => {
+const NavBarComponent: React.FC<NavBarProps> = ({ signOut, session }) => {
   const [image, setImage] = useState<string>("");
   useEffect(() => {
     setImage(session?.user?.image);
@@ -34,4 +34,4 @@ const NavBar: React.FC<NavBarProps> = ({ signOut, session }) => {
   );
 };
 
-export default NavBar;
+export default NavBarComponent;
