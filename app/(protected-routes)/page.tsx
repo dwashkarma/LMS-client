@@ -1,26 +1,24 @@
 "use client";
 import NavBar from "@/components/navbar";
-import { connectDB } from "@/libs/mongodb";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 export default function Home() {
-  const db = connectDB();
-  const { data: session, status } = useSession();
-  console.log(session);
+  const { data: session } = useSession();
+
   return (
-    <div className="flex flex-col">
-      {/* <NavBar /> */}
-      <h1>Home</h1>
-      <b>signIn</b>
-      <div>
-        <button className="bg-sky-700" onClick={() => signIn("google")}>
-          SignIn
-        </button>
-      </div>
-      <div>
-        <button className="bg-sky-700" onClick={() => signOut()}>
-          Signout
-        </button>
-      </div>
-    </div>
+    // <div>
+    //   <Image
+    //     src={image}
+    //     alt="profileImage"
+    //     height={80}
+    //     width={80}
+    //     className="rounded-full"
+    //   />
+    //   <p>hello {session.user?.name}</p>
+
+    //   <button className="bg-sky-700" onClick={() => signOut()}>
+    //     Signout
+    //   </button>
+    // </div>
+    <NavBar session={session} signOut={() => signOut()} />
   );
 }
