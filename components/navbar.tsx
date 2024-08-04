@@ -17,75 +17,87 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import '../images/Dlogo.png'; 
+import '../images/Dlogo.png';
+import Image from "next/image";
+import { useEffect, useState } from 'react';
 
 const options = [
-  'None',
-  'Atria',
-  'Callisto',
-  'Dione',
-  'Ganymede',
-  'Hangouts Call',
-  'Luna',
-  'Oberon',
-  'Phobos',
-  'Pyxis',
-  'Sedna',
-  'Titania',
-  'Triton',
-  'Umbriel',
-];
-
-const ITEM_HEIGHT = 48;
-
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
-  },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '55ch',
+    'None',
+    'Atria',
+    'Callisto',
+    'Dione',
+    'Ganymede',
+    'Hangouts Call',
+    'Luna',
+    'Oberon',
+    'Phobos',
+    'Pyxis',
+    'Sedna',
+    'Titania',
+    'Triton',
+    'Umbriel',
+  ];
+  
+  const ITEM_HEIGHT = 48;
+  
+  const Search = styled('div')(({ theme }) => ({
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
     },
-  },
-}));
-
-const MenuButton = styled(IconButton)(({ theme }) => ({
-  display: 'none',
-  [theme.breakpoints.down('md')]: {
+    marginRight: theme.spacing(2),
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(3),
+      width: 'auto',
+    },
+  }));
+  
+  const SearchIconWrapper = styled('div')(({ theme }) => ({
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
     display: 'flex',
-  },
-}));
+    alignItems: 'center',
+    justifyContent: 'center',
+  }));
+  
+  const StyledInputBase = styled(InputBase)(({ theme }) => ({
+    color: 'inherit',
+    '& .MuiInputBase-input': {
+      padding: theme.spacing(1, 1, 1, 0),
+      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+      transition: theme.transitions.create('width'),
+      width: '100%',
+      [theme.breakpoints.up('md')]: {
+        width: '55ch',
+      },
+    },
+  }));
+  
+  const MenuButton = styled(IconButton)(({ theme }) => ({
+    display: 'none',
+    [theme.breakpoints.down('md')]: {
+      display: 'flex',
+    },
+  }));
+{/*for the signout  */}
+  interface NavBarProps{
+    session:any;
+    signOut: () => void;
+  }
+const Navbar: React.FC<NavBarProps> = ({signOut,session}) => {
+    const [image, setImage] = useState<string>("");
+    useEffect(() => {
+        setImage(session?.user?.image);
+      }, [session]);
+      {/*Ending  logic of signout  */}
 
-export default function PrimarySearchAppBar() {
-  const [drawerOpen, setDrawerOpen] = React.useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const menuOpen = Boolean(anchorEl);
 
@@ -105,6 +117,7 @@ export default function PrimarySearchAppBar() {
     setAnchorEl(null);
   };
 
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -116,8 +129,7 @@ export default function PrimarySearchAppBar() {
           >
             <MenuIcon />
           </MenuButton>
-
-<Box
+        <Box
   sx={{
     flexGrow: 1,
     display: { xs: 'none', sm: 'block' },
@@ -125,12 +137,15 @@ export default function PrimarySearchAppBar() {
     height: 'auto',  // Maintain aspect ratio
   }}
 >
-  <img
-    src="logoD.png"
-    alt="Logo"
-    style={{ width: '100%', height: 'auto'}}
-  />
-</Box>
+        <Image
+          className="rounded-full"
+          src={image}
+          alt="ProfileImage"
+          height={80}
+          width={40} 
+        />
+        <h2>{session?.user?.email}</h2>
+         </Box>
 
           <Button
             aria-label="categories"
@@ -177,16 +192,10 @@ export default function PrimarySearchAppBar() {
           </Box>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <Button
-              onClick={() => alert('Sign In')}
+              onClick={signOut}
               color="inherit"
             >
-              Sign In
-            </Button>
-            <Button
-              onClick={() => alert('Sign Up')}
-              color="inherit"
-            >
-              Sign Up
+              Sign Out
             </Button>
           </Box>
         </Toolbar>
@@ -203,11 +212,9 @@ export default function PrimarySearchAppBar() {
           onKeyDown={handleDrawerClose}
         >
           <List>
-            <ListItem button onClick={() => alert('Sign In')}>
-              <ListItemText primary="Sign In" />
-            </ListItem>
-            <ListItem button onClick={() => alert('Sign Up')}>
-              <ListItemText primary="Sign Up" />
+            
+            <ListItem button onClick={signOut}>
+              <ListItemText primary="Sign Out" />
             </ListItem>
             <Divider />
             <ListItem button>
@@ -229,4 +236,7 @@ export default function PrimarySearchAppBar() {
       </Drawer>
     </Box>
   );
+  
 }
+
+export default Navbar
