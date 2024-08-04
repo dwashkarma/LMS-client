@@ -155,6 +155,7 @@ const Navbar: React.FC<NavBarProps> = ({signOut,session}) => {
             aria-haspopup="true"
             onClick={handleMenuButtonClick}
             color="inherit"
+            sx={{ display: { xs: 'none', md: 'flex' } }}
           >
             Categories
           </Button>
@@ -179,7 +180,7 @@ const Navbar: React.FC<NavBarProps> = ({signOut,session}) => {
               </MenuItem>
             ))}
           </Menu>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: { md: 'none', md: 'flex' } }}>
             <Search>
               <SearchIconWrapper>
                 <SearchIcon />
@@ -211,14 +212,33 @@ const Navbar: React.FC<NavBarProps> = ({signOut,session}) => {
           onClick={handleDrawerClose}
           onKeyDown={handleDrawerClose}
         >
+
+          {/* code for the responsive or repsonsive for the small sizes*/}
           <List>
-            
+          <Box
+  sx={{
+    flexGrow: 1,
+    display: { xs: 'block', sm: 'block' },
+    width: 100,  // Adjust width as needed
+    height: 'auto',  // Maintain aspect ratio
+  }}
+>
+        <Image
+          className="rounded-full"
+          src={image}
+          alt="ProfileImage"
+          height={80}
+          width={40} 
+        />
+        <h2>{session?.user?.email}</h2>
+         </Box>
             <ListItem button onClick={signOut}>
               <ListItemText primary="Sign Out" />
             </ListItem>
             <Divider />
             <ListItem button>
-              <ListItemText primary="Categories" />
+              <ListItemText primary="Categories" onClick={handleMenuButtonClick}
+ />
             </ListItem>
             <ListItem>
               <Search>
