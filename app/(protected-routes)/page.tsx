@@ -1,12 +1,16 @@
 "use client";
-import NavBarComponent from "@/components/navbarComponent";
+import CourseCard from "@/components/courseCard";
+import Navbar from "@/components/navbar";
+// import Celete from "@/components/delete";
+// import NavBar from "@/components/navbar";
+
 import { useSession, signOut } from "next-auth/react";
 export default function Home() {
   const { data: session } = useSession();
 
   return (
-    // <div>
-    //   <Image
+    <div>
+      {/* //   <Image
     //     src={image}
     //     alt="profileImage"
     //     height={80}
@@ -18,7 +22,12 @@ export default function Home() {
     //   <button className="bg-sky-700" onClick={() => signOut()}>
     //     Signout
     //   </button>
-    // </div>
-    <NavBarComponent session={session} signOut={() => signOut()} />
+    */}
+
+  
+          {/* <Celete session={session} signOut={() => signOut()} /> */}
+      <Navbar session={session} signOut={() => signOut()}/>
+      <CourseCard />
+    </div>
   );
 }
