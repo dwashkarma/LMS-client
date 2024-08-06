@@ -1,9 +1,7 @@
 "use client";
 import * as React from "react";
 import { styled, alpha } from "@mui/material/styles";
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import Button from "@mui/material/Button";
@@ -16,7 +14,6 @@ import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import "../images/Dlogo.png";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { TextField } from "@mui/material";
@@ -128,7 +125,7 @@ const Navbar: React.FC<NavBarProps> = ({ signOut, session }) => {
           <MenuIcon />
         </MenuButton>
         <div className="flex gap-10 items-center">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 hidden xs:flex md:flex">
             <Image
               className="rounded-full"
               src={image}
@@ -172,17 +169,17 @@ const Navbar: React.FC<NavBarProps> = ({ signOut, session }) => {
             </Menu>
           </div>
         </div>
-        <div className="flex items-center">
-          <TextField
+        <div className="flex items-center rounded-xl w-[50%] ">
+          <TextField className="w-[80%]  "
             type="text"
             name="search"
             label="search"
-            placeholder="Search"
+            placeholder="Search for anything.."
           />
         </div>
         <div>
           <button
-            className="bg-green-700 text-white p-2 hover:bg-green-800 rounded-md hover:shadow-lg"
+            className="bg-black text-white p-2 hover:bg-green-800  hover:shadow-lg"
             onClick={signOut}
           >
             Sign Out
@@ -196,30 +193,30 @@ const Navbar: React.FC<NavBarProps> = ({ signOut, session }) => {
           onClick={handleDrawerClose}
           onKeyDown={handleDrawerClose}
         >
-          {/* code for the responsive or repsonsive for the small sizes*/}
+          {/* repsonsive for the small screen sizes*/}
           <List>
-            <Box
+            <Box 
               sx={{
                 flexGrow: 1,
                 display: { xs: "block", sm: "block" },
-                width: 100, // Adjust width as needed
-                height: "auto", // Maintain aspect ratio
+                width: 100, 
+                height: "auto", 
               }}
             >
               <Image
-                className="rounded-full"
+                className="rounded-full "
                 src={image}
                 alt="ProfileImage"
                 height={80}
                 width={40}
-              />
+                />
               <h2>{session?.user?.email}</h2>
             </Box>
-            <ListItem button onClick={signOut}>
+            <ListItem  onClick={signOut}>
               <ListItemText primary="Sign Out" />
             </ListItem>
             <Divider />
-            <ListItem button>
+            <ListItem >
               <ListItemText
                 primary="Categories"
                 onClick={handleMenuButtonClick}
@@ -227,10 +224,12 @@ const Navbar: React.FC<NavBarProps> = ({ signOut, session }) => {
             </ListItem>
             <ListItem>
               <Search>
-                <SearchIconWrapper>
+                <SearchIconWrapper className="rounded-xl">
                   <SearchIcon />
                 </SearchIconWrapper>
                 <StyledInputBase
+                  type="text"
+                  name="search"
                   placeholder="Search…"
                   inputProps={{ "aria-label": "search" }}
                 />
