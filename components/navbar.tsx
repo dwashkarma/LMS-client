@@ -120,7 +120,7 @@ const Navbar: React.FC<NavBarProps> = ({ signOut, session }) => {
 
   return (
     <div>
-      <div className="flex justify-around items-center p-4  text-slate-600">
+      <div className="flex justify-around items-center p-4 text-md text-slate-600 shadow-lg">
         <MenuButton color="inherit" aria-label="menu" onClick={handleMenuClick}>
           <MenuIcon />
         </MenuButton>
@@ -135,7 +135,7 @@ const Navbar: React.FC<NavBarProps> = ({ signOut, session }) => {
             />
             <h2>{session?.user?.email}</h2>
           </div>
-          <div>
+          <div className="border-solid text-md">
             <Button
               aria-label="categories"
               id="categories-button"
@@ -169,8 +169,8 @@ const Navbar: React.FC<NavBarProps> = ({ signOut, session }) => {
             </Menu>
           </div>
         </div>
-        <div className="flex items-center rounded-xl w-[50%] ">
-          <TextField className="w-[80%]  "
+        <div className="flex items-center rounded-xl rounded-tl-[100px] w-[50%] shadow-sm text-md ">
+          <TextField className="w-[100%] text-md "
             type="text"
             name="search"
             label="search"
@@ -179,7 +179,7 @@ const Navbar: React.FC<NavBarProps> = ({ signOut, session }) => {
         </div>
         <div>
           <button
-            className="bg-black text-white p-2 hover:bg-green-800  hover:shadow-lg"
+            className="bg-black text-white p-2 hover:bg-green-800  hover:shadow-lg shadow-lg"
             onClick={signOut}
           >
             Sign Out
