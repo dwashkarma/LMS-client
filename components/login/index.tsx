@@ -5,6 +5,7 @@ import PasswordField from "../shared/PasswordField";
 import ButtonComponent from "../shared/ButtonComponent";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { useRouter } from "next/navigation";
 
 const loginValues = {
   email: "",
@@ -18,6 +19,8 @@ const loginSchema = yup.object().shape({
   fullname: yup.string().required("Please enter your name!"),
 });
 const LoginPage = () => {
+  const [passwordType, setPasswordType] = useState(false);
+  const router = useRouter();
   const { values, handleBlur, handleChange, touched, errors, handleSubmit } =
     useFormik({
       initialValues: loginValues,
@@ -26,7 +29,6 @@ const LoginPage = () => {
         console.log(values);
       },
     });
-  const [passwordType, setPasswordType] = useState(false);
 
   const handleClickPassword = () => {
     setPasswordType(!passwordType);
@@ -71,8 +73,11 @@ const LoginPage = () => {
       <div className="text-end grid gap-2">
         <ButtonComponent handleClick={handleSubmit}>Login</ButtonComponent>
         <div>
-          <span className="text-end text-sky-800 hover:border-b cursor-pointer hover:border-b-sky-800 text-xs font-normal">
-            Already have an account
+          <span
+            onClick={() => router.push("/register")}
+            className="text-end text-sky-800 hover:border-b cursor-pointer hover:border-b-sky-800 text-xs font-normal"
+          >
+            Create an account
           </span>
         </div>
       </div>
