@@ -1,4 +1,5 @@
 import { model, models, Schema } from "mongoose";
+import { v4 as uuidv4 } from "uuid";
 
 export interface UserDocument {
   email: string;
@@ -13,6 +14,7 @@ const UserSchema = new Schema<UserDocument>(
     id: {
       type: String,
       unique: true,
+      default: uuidv4,
     },
     email: {
       type: String,

@@ -16,54 +16,50 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GOOGLE_ID as string,
       clientSecret: process.env.GOOGLE_SECRET as string,
     }),
-    // CredentialsProvider({
-    //   id: "credentials",
-    //   name: "Credentials",
-    //   credentials: {
-    //     email: {
-    //       label: "Email",
-    //       placeholder: "Enter your email",
-    //       type: "text",
-    //     },
-    //     password: {
-    //       label: "Password",
-    //       type: "password",
-    //     },
-    //   },
-
-    // }),
+    CredentialsProvider({
+      id: "credentials",
+      name: "Credentials",
+      credentials: {
+        email: {},
+        password: {},
+        fullname: {},
+      },
+      async authorize(credentials, req) {
+        return null;
+      },
+    }),
   ],
-  callbacks: {
-    async session({ session, token }) {
-      // const sessionUser = await UserSchema.findOne({
-      //   email: session.user?.email,
-      // });
-      return session;
-    },
-    async signIn({ profile }) {
-      const extendedProfile = profile as ExtendedProfile;
-      console.log(extendedProfile);
-      try {
-        await connectDB();
-        console.log("connected to database");
-        const userExits = await UserSchema.findOne({
-          email: extendedProfile?.email,
-        });
-
-        if (!userExits) {
-          const user = await UserSchema.create({
-            id: extendedProfile?.sub,
-            email: extendedProfile?.email,
-            name: extendedProfile?.name,
-            image: extendedProfile?.picture,
-          });
-        }
-        return true;
-      } catch (error) {
-        console.log(error);
-        return false;
-      }
-      return true;
-    },
+  pages: {
+    signIn: "/",
   },
+  // callbacks: {
+  //   async session({ session, token }) {
+  //     return session;
+  //   },
+  //   async signIn({ profile }) {
+  //     const extendedProfile = profile as ExtendedProfile;
+  //     console.log(extendedProfile);
+  //     try {
+  //       await connectDB();
+  //       console.log("connected to database");
+  //       const userExits = await UserSchema.findOne({
+  //         email: extendedProfile?.email,
+  //       });
+
+  //       if (!userExits) {
+  //         const user = await UserSchema.create({
+  //           id: extendedProfile?.sub,
+  //           email: extendedProfile?.email,
+  //           name: extendedProfile?.name,
+  //           image: extendedProfile?.picture,
+  //         });
+  //       }
+  //       return true;
+  //     } catch (error) {
+  //       console.log(error);
+  //       return false;
+  //     }
+  //     return true;
+  //   },
+  // },
 };
