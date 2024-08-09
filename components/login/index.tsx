@@ -33,7 +33,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="shadow-md  shadow-slate-200 rounded p-8 w-fit grid gap-8">
+    <div className="shadow border w-[30%] shadow-slate-200 rounded-lg p-8  grid gap-8">
       <h2 className="text-center font-normal text-xl uppercase text-primary">
         Login Page
       </h2>

@@ -25,6 +25,7 @@ const InputField: React.FC<InputTypes> = ({
 }) => {
   return (
     <TextField
+      fullWidth
       name={name}
       value={value}
       label={label}
