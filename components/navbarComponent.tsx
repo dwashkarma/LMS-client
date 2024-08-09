@@ -1,21 +1,17 @@
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React from "react";
 interface NavBarProps {
   session: any;
   signOut: () => void;
 }
 const NavBarComponent: React.FC<NavBarProps> = ({ signOut, session }) => {
-  const [image, setImage] = useState<string>("");
-  useEffect(() => {
-    setImage(session?.user?.image);
-  }, [session]);
   return (
     <div className="flex justify-between p-4 bg-slate-400">
       <div className="flex gap-2 items-center text-sm font-normal">
         {" "}
         <Image
           className="rounded-full"
-          src={image}
+          src={session?.user?.image}
           alt="ProfileImage"
           height={40}
           width={40}
