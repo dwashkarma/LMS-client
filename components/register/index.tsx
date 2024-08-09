@@ -8,6 +8,8 @@ import * as yup from "yup";
 import axios from "axios";
 import { NextResponse } from "next/server";
 import { useRouter } from "next/navigation";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const loginValues = {
   email: "",
@@ -28,6 +30,18 @@ const RegisterComponent = () => {
     confirm: false,
   });
   const router = useRouter();
+
+  const showToastMessage = (message: string, type: string) => {
+    if (type === "success") {
+      toast.success(message, {
+        position: "bottom-right",
+      });
+    } else if (type === "error") {
+      toast.error(message, {
+        position: "bottom-right",
+      });
+    }
+  };
 
   const {
     values,
@@ -50,10 +64,14 @@ const RegisterComponent = () => {
             password: values.password,
           });
           resetForm();
+          showToastMessage("Successfull created !", "success");
         } else {
           setFieldError("confirm", "Must be same as password");
         }
       } catch (errors: any) {
+        const error = errors?.response?.data.message || errors.response.data;
+        showToastMessage(error, "error");
+
         return NextResponse.json({ message: errors.message }, { status: 500 });
       }
     },
@@ -120,6 +138,7 @@ const RegisterComponent = () => {
           </span>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };
